@@ -5,19 +5,24 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dictonary.R
+import com.example.dictonary.application.TranslatorApp
 import com.example.dictonary.databinding.ActivityMainBinding
+import com.example.dictonary.di.ViewModelFactory
 import com.example.dictonary.model.AppState
 import com.example.dictonary.model.repository.entity.DataModel
-import com.example.dictonary.presenter.Presenter
-import com.example.dictonary.presenter.main.MainPresenterImpl
 import com.example.dictonary.view.BaseActivity
-import com.example.dictonary.view.View
+import javax.inject.Inject
 
-class MainActivity : BaseActivity<AppState>() {
+class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
     private lateinit var binding: ActivityMainBinding
+
+    @Inject
+    internal lateinit var viewModelFactory: ViewModelFactory
+    override lateinit var model: MainViewModel
 
     private val adapter by lazy {
         MainAdapter(onListItemClickListener)
@@ -30,27 +35,29 @@ class MainActivity : BaseActivity<AppState>() {
             }
         }
 
-    override fun createPresenter(): Presenter<AppState, View> {
-        return MainPresenterImpl()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
+        TranslatorApp.appComponent.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        model = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+        model.subscribe().observe(this@MainActivity, { renderData(it) })
+
         binding.apply {
             inputLayout.setEndIconOnClickListener {
-                presenter.getData(inputEditText.text.toString(), true)
+                model.getData(inputEditText.text.toString(), isNetworkAvailable)
             }
+
             inputEditText.setOnEditorActionListener { _, actionId, _ ->
                 println(actionId)
                 if (actionId == EditorInfo.IME_ACTION_UNSPECIFIED || actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    presenter.getData(inputEditText.text.toString(), true)
+                    model.getData(inputEditText.text.toString(), isNetworkAvailable)
                     return@setOnEditorActionListener true
                 }
                 return@setOnEditorActionListener false
             }
+
             mainActivityRecyclerview.layoutManager = LinearLayoutManager(applicationContext)
             mainActivityRecyclerview.adapter = adapter
         }
@@ -91,7 +98,7 @@ class MainActivity : BaseActivity<AppState>() {
         binding.apply {
             errorTextview.text = error ?: getString(R.string.undefined_error)
             reloadButton.setOnClickListener {
-                presenter.getData("hi", true)
+                model.getData("hi", isNetworkAvailable)
             }
         }
     }

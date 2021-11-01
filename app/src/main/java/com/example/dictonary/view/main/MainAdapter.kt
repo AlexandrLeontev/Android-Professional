@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.api.load
+import coil.load
 import com.example.dictonary.R
 import com.example.dictonary.databinding.ActivityMainRecyclerviewItemBinding
 import com.example.dictonary.model.repository.entity.DataModel
