@@ -1,21 +1,16 @@
 package com.example.dictonary.application
 
 import android.app.Application
-import com.example.dictonary.di.AppComponent
-import com.example.dictonary.di.DaggerAppComponent
+import com.example.dictonary.di.application
+import com.example.dictonary.di.mainScreen
+import org.koin.core.context.startKoin
 
 class TranslatorApp : Application() {
-
-    companion object {
-        lateinit var appComponent: AppComponent
-    }
-
     override fun onCreate() {
         super.onCreate()
-        appComponent = DaggerAppComponent
-            .builder()
-            .appContent(this)
-            .build()
+        startKoin {
+            modules(listOf(application, mainScreen))
+        }
     }
 }
 

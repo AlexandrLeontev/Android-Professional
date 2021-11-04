@@ -46,18 +46,13 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$test_junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
 
-    //Rx-Java
-    implementation "io.reactivex.rxjava3:rxandroid:$rxandroid_version"
-    implementation "io.reactivex.rxjava3:rxjava:$rxjava_version"
-
-    //Dagger
-    implementation "com.google.dagger:dagger:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    //Koin
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
     //Retrofit 2
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.retrofit2:adapter-rxjava3:$rxjava_adapter"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
     // Coil

@@ -13,11 +13,8 @@ buildscript {
         okhttp_version = "4.9.0"
         build_gradle_version = "7.0.2"
         kotlin_gradle_plugin = "1.5.30"
-        rxjava_version = "3.0.2"
-        rxandroid_version = "3.0.0"
-        rxjava_adapter = "2.9.0"
         coil_version = "1.1.1"
-        dagger_version = "2.39.1"
+        koin_version = "2.0.1"
     }
     repositories {
         google()

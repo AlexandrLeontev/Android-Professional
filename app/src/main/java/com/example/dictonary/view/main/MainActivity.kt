@@ -5,23 +5,17 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dictonary.R
-import com.example.dictonary.application.TranslatorApp
 import com.example.dictonary.databinding.ActivityMainBinding
-import com.example.dictonary.di.ViewModelFactory
 import com.example.dictonary.model.AppState
 import com.example.dictonary.model.repository.entity.DataModel
 import com.example.dictonary.view.BaseActivity
-import javax.inject.Inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
     private lateinit var binding: ActivityMainBinding
-
-    @Inject
-    internal lateinit var viewModelFactory: ViewModelFactory
     override lateinit var model: MainViewModel
 
     private val adapter by lazy {
@@ -36,15 +30,16 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        TranslatorApp.appComponent.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        model = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+        val viewModel: MainViewModel by viewModel()
+        model = viewModel
         model.subscribe().observe(this@MainActivity, { renderData(it) })
 
         binding.apply {
+
             inputLayout.setEndIconOnClickListener {
                 model.getData(inputEditText.text.toString(), isNetworkAvailable)
             }
