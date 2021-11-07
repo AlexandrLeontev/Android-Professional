@@ -14,7 +14,7 @@ buildscript {
         build_gradle_version = "7.0.2"
         kotlin_gradle_plugin = "1.5.30"
         coil_version = "1.1.1"
-        koin_version = "2.0.1"
+        koin_version = "2.0.0"
     }
     repositories {
         google()

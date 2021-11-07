@@ -1,29 +1,35 @@
 package com.example.dictonary.di
 
-import com.example.dictonary.model.datasource.RoomDataBaseImplementation
-import com.example.dictonary.model.repository.Repository
-import com.example.dictonary.model.repository.RepositoryImplementation
+import com.example.dictonary.model.datasource.BaseInterceptor
+import com.example.dictonary.model.repository.ApiService
 import com.example.dictonary.model.repository.RetrofitImplementation
-import com.example.dictonary.model.repository.entity.DataModel
-import com.example.dictonary.view.main.MainInteractor
-import com.example.dictonary.view.main.MainViewModel
-import org.koin.core.qualifier.named
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
-val application = module {
-    single<Repository<List<DataModel>>>(named("Remote")) {
-        RepositoryImplementation(
-            RetrofitImplementation()
-        )
-    }
-    single<Repository<List<DataModel>>>(named("Local")) {
-        RepositoryImplementation(
-            RoomDataBaseImplementation()
-        )
-    }
+val appModule = module {
+    single { provideRetrofit() }
+    single { provideService() }
+    single { provideOkHttpClient() }
 }
 
-val mainScreen = module {
-    factory { MainInteractor(get(named("Remote")), get(named("Local"))) }
-    factory { MainViewModel(get()) }
+private fun provideService(): ApiService {
+    return provideRetrofit().create(ApiService::class.java)
+}
+
+private fun provideRetrofit(): Retrofit {
+    return Retrofit.Builder()
+        .baseUrl(RetrofitImplementation.BASE_URL_LOCATIONS)
+        .addConverterFactory(GsonConverterFactory.create())
+        .client(provideOkHttpClient())
+        .build()
+}
+
+private fun provideOkHttpClient(): OkHttpClient {
+    val httpClient = OkHttpClient.Builder()
+    httpClient.addInterceptor(BaseInterceptor.interceptor)
+    httpClient.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+    return httpClient.build()
 }

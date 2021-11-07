@@ -16,7 +16,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
     private lateinit var binding: ActivityMainBinding
-    override lateinit var model: MainViewModel
+
+    override val model: MainViewModel by viewModel()
 
     private val adapter by lazy {
         MainAdapter(onListItemClickListener)
@@ -34,8 +35,6 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val viewModel: MainViewModel by viewModel()
-        model = viewModel
         model.subscribe().observe(this@MainActivity, { renderData(it) })
 
         binding.apply {
