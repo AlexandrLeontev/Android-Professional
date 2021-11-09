@@ -3,7 +3,7 @@ package com.example.dictonary.model.repository
 import com.example.dictonary.model.datasource.DataSource
 import com.example.dictonary.model.repository.entity.DataModel
 
-class RetrofitImplementation (private val apiService: ApiService) : DataSource<List<DataModel>> {
+class RetrofitImplementation(private val apiService: ApiService) : DataSource<List<DataModel>> {
 
     override suspend fun getData(word: String): List<DataModel> {
         return apiService.search(word)
