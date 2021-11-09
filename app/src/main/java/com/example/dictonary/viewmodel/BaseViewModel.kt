@@ -22,7 +22,7 @@ abstract class BaseViewModel<T : AppState>(
     }
 
     protected fun cancelJob() {
-        viewModelCoroutineScope.cancel()
+        viewModelCoroutineScope.coroutineContext.cancelChildren()
     }
 
     abstract fun getData(word: String, isOnline: Boolean)

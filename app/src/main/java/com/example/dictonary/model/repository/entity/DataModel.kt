@@ -1,6 +1,8 @@
 package com.example.dictonary.model.repository.entity
 
+import com.google.gson.annotations.Expose
+
 class DataModel(
-    val text: String?,
-    val meanings: List<Meanings>?
+    @Expose val text: String?,
+    @Expose val meanings: List<Meanings>?
 )

@@ -46,7 +46,7 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$test_junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
 
-    //Koin
+    // Koin
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
@@ -57,4 +57,10 @@ dependencies {
 
     // Coil
     implementation "io.coil-kt:coil:$coil_version"
+
+    // View binding property delegate
+    implementation "com.github.kirich1409:viewbindingpropertydelegate:$viewbinding_delegate_version"
+
+    // Fragment ktx
+    implementation "androidx.fragment:fragment-ktx:$fragment_ktx_version"
 }

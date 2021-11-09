@@ -20,6 +20,7 @@ class BaseInterceptor private constructor() : Interceptor {
     }
 
     companion object {
+
         val interceptor: BaseInterceptor
             get() = BaseInterceptor()
     }
