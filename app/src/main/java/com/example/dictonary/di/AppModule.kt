@@ -1,8 +1,10 @@
 package com.example.dictonary.di
 
+import androidx.room.Room
 import com.example.dictonary.model.datasource.BaseInterceptor
 import com.example.dictonary.model.repository.ApiService
 import com.example.dictonary.model.repository.RetrofitImplementation
+import com.example.dictonary.model.room.HistoryDataBase
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -13,6 +15,8 @@ val appModule = module {
     single { provideRetrofit() }
     single { provideService() }
     single { provideOkHttpClient() }
+    single { Room.databaseBuilder(get(), HistoryDataBase::class.java, "HistoryDB").build() }
+    single { get<HistoryDataBase>().historyDao() }
 }
 
 private fun provideService(): ApiService {

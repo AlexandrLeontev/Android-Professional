@@ -1,16 +1,21 @@
 package com.example.dictonary.view.main
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dictonary.R
 import com.example.dictonary.databinding.ActivityMainBinding
 import com.example.dictonary.model.AppState
 import com.example.dictonary.model.repository.entity.DataModel
+import com.example.dictonary.utils.network.convertMeaningsToString
 import com.example.dictonary.view.BaseActivity
+import com.example.dictonary.view.detail.DetailActivity
+import com.example.dictonary.view.history.HistoryActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<AppState, MainInteractor>() {
@@ -26,7 +31,14 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
     private val onListItemClickListener: MainAdapter.OnListItemClickListener =
         object : MainAdapter.OnListItemClickListener {
             override fun onItemClick(data: DataModel) {
-                Toast.makeText(this@MainActivity, data.text, Toast.LENGTH_SHORT).show()
+                startActivity(
+                    DetailActivity.getIntent(
+                        this@MainActivity,
+                        data.text!!,
+                        convertMeaningsToString(data.meanings!!),
+                        data.meanings[0].imageUrl
+                    )
+                )
             }
         }
 
@@ -84,6 +96,21 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
                     showErrorScreen(appState.error.message)
                 }
             }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_history -> {
+                startActivity(Intent(this, HistoryActivity::class.java))
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

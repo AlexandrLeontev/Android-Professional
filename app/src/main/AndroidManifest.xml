@@ -14,7 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dictionary">
         <activity
-            android:name=".stopwatch.view.StopwatchActivity"
+            android:name=".view.history.HistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.detail.DetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
