@@ -7,6 +7,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    defaultConfig {
+        minSdkVersion Config.min_sdk
+    }
 }
 
 dependencies {
@@ -19,7 +22,7 @@ dependencies {
     kapt Glide.glide_compiler
 
     //Koil image download
-    implementation("io.coil-kt:coil:1.1.1")
+    implementation("io.coil-kt:coil:0.9.2")
 
     implementation Design.appcompat
 

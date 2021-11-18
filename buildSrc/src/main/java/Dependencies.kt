@@ -1,8 +1,8 @@
 import org.gradle.api.JavaVersion
 
 object Config {
-    const val application_id = "com.example.dictonary"
-    const val compile_sdk = 30
+    const val application_id = "net.svishch.android.dictionary"
+    const val compile_sdk = 29
     const val min_sdk = 21
     const val target_sdk = 30
     val java_version = JavaVersion.VERSION_1_8
@@ -14,6 +14,7 @@ object Releases {
 }
 
 object Modules {
+    const val app = ":app"
     const val model = ":model"
     const val utils = ":utils"
 
@@ -52,16 +53,20 @@ object Versions {
     const val picasso = "2.5.2"
 
     //Koil
-    const val koil = "1.1.1"
+    const val koil = "0.9.2"
 
     //Room
-    const val room = "2.3.0"
+    const val room = "2.2.0-alpha01"
+
+    //Google Play
+    const val googlePlayCore = "1.6.3"
 
     //Test
     const val jUnit = "4.12"
     const val runner = "1.2.0"
     const val espressoCore = "3.2.0"
 }
+
 
 object Tools {
     const val multidex = "com.android.support:multidex:${Versions.multidex}"
@@ -120,4 +125,8 @@ object TestImpl {
     const val junit = "junit:junit:${Versions.jUnit}"
     const val runner = "androidx.test:runner:${Versions.runner}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
+}
+
+object GooglePlay {
+    const val googlePlayCore = "com.google.android.play:core:${Versions.googlePlayCore}"
 }
