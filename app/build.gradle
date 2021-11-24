@@ -76,6 +76,9 @@ dependencies {
     kapt Room.compiler
     implementation Room.room_ktx
 
+    // Splash screen Android 12
+    implementation Design.splash_screen
+
     //Google Play libraries
     implementation GooglePlay.googlePlayCore
 

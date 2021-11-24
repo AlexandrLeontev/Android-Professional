@@ -15,7 +15,8 @@
         android:theme="@style/Theme.Dictionary">
         <activity
             android:name="net.example.android.dictionary.view.main.MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

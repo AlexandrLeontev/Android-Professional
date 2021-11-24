@@ -1,10 +1,10 @@
 import org.gradle.api.JavaVersion
 
 object Config {
-    const val application_id = "net.svishch.android.dictionary"
-    const val compile_sdk = 29
+    const val application_id = "net.example.android.dictionary"
+    const val compile_sdk = 31
     const val min_sdk = 21
-    const val target_sdk = 30
+    const val target_sdk = 31
     val java_version = JavaVersion.VERSION_1_8
 }
 
@@ -56,7 +56,7 @@ object Versions {
     const val koil = "0.9.2"
 
     //Room
-    const val room = "2.2.0-alpha01"
+    const val room = "2.3.0"
 
     //Google Play
     const val googlePlayCore = "1.6.3"
@@ -65,6 +65,9 @@ object Versions {
     const val jUnit = "4.12"
     const val runner = "1.2.0"
     const val espressoCore = "3.2.0"
+
+    // Splash screen Android 12
+    const val splashScreen = "1.0.0-alpha02"
 }
 
 
@@ -77,6 +80,7 @@ object Tools {
 object Design {
     const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
     const val material = "com.google.android.material:material:${Versions.material}"
+    const val splash_screen = "androidx.core:core-splashscreen:${Versions.splashScreen}"
 }
 
 object Kotlin {

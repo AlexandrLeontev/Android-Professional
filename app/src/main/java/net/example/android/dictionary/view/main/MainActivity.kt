@@ -9,6 +9,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -32,6 +33,7 @@ import net.example.android.dictionary.utils.ui.viewById
 import net.example.android.dictionary.view.BaseActivity
 import net.example.android.dictionary.view.descriptionscreen.DescriptionActivity
 import org.koin.android.scope.currentScope
+import java.util.concurrent.Executors
 
 private const val HISTORY_ACTIVITY_PATH =
     "net.example.android.dictionary.view.history.HistoryActivity"
@@ -74,8 +76,8 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
+        startAnimationAfterSplashScreen()
         setContentView(R.layout.activity_main)
         iniViewModel()
         initViews()
@@ -252,6 +254,17 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
                     REQUEST_CODE
                 )
             }
+        }
+    }
+
+    private fun startAnimationAfterSplashScreen() {
+        val splashScreen = installSplashScreen()
+        var condition = true
+        splashScreen.setKeepVisibleCondition { condition }
+        Executors.newSingleThreadExecutor().execute {
+            Thread.sleep(1000)
+            condition = false
+            splashScreen.setKeepVisibleCondition { condition }
         }
     }
 
